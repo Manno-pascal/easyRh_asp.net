@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+builder.Services.AddControllers();
 
 
 var app = builder.Build();
@@ -22,22 +23,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+   
 }
 
-// app.MapGet("/company/{id}", async (int id, ApplicationDbContext db) =>
-//     await db.Todos.FindAsync(id)
-//         is Company company
-//         ? Results.Ok(company)
-//         : Results.NotFound());
-//
-//
-// app.MapPost("/company", async (Company company, ApplicationDbContext db) =>
-// {
-//     db.Todos.Add(company);
-//     await db.SaveChangesAsync();
-//     return Results.Created("/company/{id}", company);
-// });
-
-
+app.MapControllers();
 app.UseHttpsRedirection();
 app.Run();
